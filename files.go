@@ -1,25 +1,28 @@
 package utils
 
 import (
-	"bufio"
+	"io"
+	"io/ioutil"
 	"os"
+	"strings"
 )
 
-func Readfile(filename string) ([]string, error) {
-	file, err := os.Open("sample.txt")
+func ReadFileLines(filename string) ([]string, error) {
+	file, err := os.Open(filename)
 	if err != nil {
 		return nil, err
 	}
 
 	defer file.Close()
-	scanner := bufio.NewScanner(file)
+	return readlines(file)
+}
 
-	scanner.Split(bufio.ScanLines)
-	var lines []string
-
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
+func readlines(reader io.Reader) ([]string, error) {
+	readBytes, err := ioutil.ReadAll(reader)
+	if err != nil {
+		return nil, err
 	}
 
+	lines := strings.Split(string(readBytes), "\n")
 	return lines, nil
 }
