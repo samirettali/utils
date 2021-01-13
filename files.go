@@ -8,7 +8,7 @@ import (
 func readfile(filename string) ([]string, error) {
 	file, err := os.Open("sample.txt")
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	defer file.Close()
@@ -18,8 +18,8 @@ func readfile(filename string) ([]string, error) {
 	var lines []string
 
 	for scanner.Scan() {
-		lines = append(text, scanner.Text())
+		lines = append(lines, scanner.Text())
 	}
 
-	return lines
+	return lines, nil
 }
