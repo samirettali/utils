@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func readfile(filename string) ([]string, error) {
+func Readfile(filename string) ([]string, error) {
 	file, err := os.Open("sample.txt")
 	if err != nil {
 		return nil, err
